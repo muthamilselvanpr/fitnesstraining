@@ -1,13 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGaurd } from './auth/auth.gaurd';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { SignupComponent} from './auth/signup/signup.component';
-import { LoginComponent} from './auth/login/login.component';
-import { NewTrainingComponent } from './trainning/new-training/new-training.component';
-import { PastTrainingComponent } from './trainning/past-training/past-training.component';
-import { TrainingComponent } from './trainning/training.component';
-import {AuthGaurd} from './auth/auth.gaurd'
-
 
 const routes: Routes = [
   {
@@ -15,23 +9,15 @@ const routes: Routes = [
     component: WelcomeComponent
   },
   {
-    path:'signup',
-    component: SignupComponent
-  },
-  {
-    path:'login',
-    component: LoginComponent
-  },
-  {
     path:'training',
-    component: TrainingComponent,
-    canActivate:[AuthGaurd]
+    loadChildren: () => import('./trainning/training.module').then(m => m.TrainingModule),
+    canLoad: [AuthGaurd]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers:[AuthGaurd]
+  providers: [AuthGaurd]
 })
 export class AppRoutingModule { }

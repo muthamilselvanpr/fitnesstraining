@@ -6,34 +6,26 @@ import { MaterialModuleModule } from './material-module/material-module.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
-import { CurrenttrainingComponent } from './trainning/currenttraining/currenttraining.component';
-import { NewTrainingComponent } from './trainning/new-training/new-training.component';
-import { PastTrainingComponent } from './trainning/past-training/past-training.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { TrainingComponent } from './trainning/training.component';
-import { from } from 'rxjs';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StopTrainingComponent } from './trainning/currenttraining/stop-training.component';
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './trainning/training.service';
 import { environment } from './../environments/environment';
+import { UiService } from './shared/ui.servise';
+import { reducers } from './app.reducer'
 import { auth, database, messaging, storage, firestore, functions } from 'firebase/app';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
-    CurrenttrainingComponent,
-    NewTrainingComponent,
-    PastTrainingComponent,
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
@@ -48,10 +40,12 @@ import { auth, database, messaging, storage, firestore, functions } from 'fireba
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AuthModule,
+    StoreModule.forRoot(reducers)
   ],
   entryComponents:[StopTrainingComponent],
-  providers: [AuthService, TrainingService],
+  providers: [AuthService, TrainingService, UiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
