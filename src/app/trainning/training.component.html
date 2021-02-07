@@ -1,5 +1,5 @@
-<mat-tab-group mat-align-tabs="start" *ngIf='!isCurrentTraining'>
+<mat-tab-group mat-align-tabs="start" *ngIf='!(isCurrentTraining | async)'>
   <mat-tab label="New Exercise"><app-new-training></app-new-training></mat-tab>
   <mat-tab label="Past Exercise"><app-past-training></app-past-training></mat-tab>
 </mat-tab-group>
-<app-currenttraining *ngIf='isCurrentTraining' (dialogClose)='isCurrentTraining = false'></app-currenttraining>
+<app-currenttraining *ngIf='isCurrentTraining | async'></app-currenttraining>

@@ -5,12 +5,12 @@
   <div>Logo</div>
   <div fxFlex fxLayout fxLayoutAlign='end' fxHide.xs>
     <ul fxLayout fxLayoutGap='10px' class='navigation-item'>
-      <li *ngIf='!isAuth'><a routerLink='/signup'>signup</a>
+      <li *ngIf='!(isAuth |async)'><a routerLink='/signup'>signup</a>
         </li>
-      <li *ngIf='!isAuth'><a routerLink='/login'>Login</a>
+      <li *ngIf='!(isAuth |async)'><a routerLink='/login'>Login</a>
         </li>
-      <li *ngIf='isAuth'><a routerLink='/training'>Training</a></li>
-      <li *ngIf='isAuth'><a style='cursor:pointer' (click)='onLogout()'>Logout</a></li>
+      <li *ngIf='(isAuth |async)'><a routerLink='/training'>Training</a></li>
+      <li *ngIf='(isAuth |async)'><a style='cursor:pointer' (click)='onLogout()'>Logout</a></li>
     </ul>
 
   </div>
